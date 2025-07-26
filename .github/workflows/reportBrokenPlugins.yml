@@ -14,20 +14,19 @@ on:
                 type: string
                 description: "Webhook URL that the report will be posted to. This will be visible for everyone, so DO NOT pass sensitive webhooks like discord webhook. This is meant to be used by Venbot."
                 required: false
-    # schedule:
-    #   # Every day at midnight
-    #   - cron: 0 0 * * *
+    schedule:
+        # Every day at midnight
+        - cron: 0 0 */7 * *
 
 jobs:
     TestPlugins:
-        if: github.repository == 'Vendicated/Vencord'
         runs-on: ubuntu-latest
 
         steps:
             - uses: actions/checkout@v4
               if: ${{ github.event_name == 'schedule' }}
               with:
-                  ref: dev
+                  ref: main
 
             - uses: actions/checkout@v4
               if: ${{ github.event_name == 'workflow_dispatch' }}
